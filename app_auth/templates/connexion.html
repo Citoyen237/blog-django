@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+{% block content%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mt-5">
+                
+                {% if messages %}
+                    
+                    {% for message in  messages%}
+                        <div class="alert alert-danger text-center">
+                            <strong>{{message}}</strong>
+                        </div>
+                    {% endfor %}
+                        
+                {% endif %}
+                    
+            <form action="" method="post" novalidate>
+                <div class="card shadow">
+                    {% csrf_token %}
+                    <div class="card-header text-center bg-secondary border">Connexion au blog</div>
+                    <div class="card-body">
+                        <label for="id_username">Nom d'utilisateur:</label>
+                        {{form.username}}
+                        <div>
+                            {% if form.username.errors %}      
+                                         
+                            {% for error in form.username.errors %}
+                            <div class="div-error-{{form.username.name}}"><small class='text-danger'>*{{error}}</small></div>
+                            {% endfor %}
+                                
+                            {% endif %}
+                        </div>  
+                        <label for="id_pwd">Mots de passe:</label>
+                        {{form.pwd}}
+                        <div>
+                            {% if form.pwd.errors %}      
+                                         
+                            {% for error in form.pwd.errors %}
+                             <div class="div-error-{{form.pwd.name}}">   <small class='text-danger'>*{{error}}</small></div>
+                            {% endfor %}
+                                
+                            {% endif %}
+                        </div>  
+                        {% comment %} <input type="text" name="login" id="" placeholder="Nom d'utilisateur" class="form-control mb-2">
+                        <input type="password" name="pwd" id="" placeholder="Mots de passe" class="form-control">
+                    {% endcomment %}</div> 
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary btn-block">Se connecter</button>   
+                        <p class="mt-2">Vous n'avez pas de compte? <a href="{% url 'register' %}">Creer le compte</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{%block content%}
+<h1 class="text-center">Bienvenue sur notre blog</h1>
+<br>
+<div class="container">
+    <div class="row">
+        {%for article in articles%}
+        <div class="col-lg-4 mt-2">
+            <div class="card shadow">
+                <a href="{% url 'detail' article.id %}">                
+                    {% comment %} {% if  article.image=="http://default" %} {% endcomment %}
+                        <img src="{{article.image.url}}" class="card-img-top">
+                    {% comment %} {% else %} {% endcomment %}
+                    {% comment %} <img src="{% static 'hotels3.jpg'%}" class="card-img-top"> {% endcomment %}
+                    {% comment %} {% endif %} {% endcomment %}                                          
+                </a>
+                <div class="card-body">
+                  <h5 class="card-title"><a href="{% url 'detail' article.id %}">{{article.title}}</a></h5>
+                  <p class="card-text">{{article.desc}}</p>
+                  <p class="card-text">publier il y'a {{article.created_at|timesince}}</p>
+                  <a href="{% url 'detail' article.id %}" class="btn btn-primary" data-mdb-ripple-init>Lire la suite</a>
+                </div>
+              </div>
+        </div>
+        {%endfor%}
+    </div> 
+</div> 
+{%endblock%}

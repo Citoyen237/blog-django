@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+{% block content %}
+<h1>Liste de recherche</h1>
+<br>
+<div class="container">
+    <div class="row">
+        {% for item in liste_articles %}
+        <div class="col-lg-4 mt-2">
+            <div class="card shadow">
+                <a href="{% url 'detail' item.id %}">                
+                    {% comment %} {% if  item.image=="http://default" %} {% endcomment %}
+                        <img src="{{item.image.url}}" class="card-img-top">
+                    {% comment %} {% else %} {% endcomment %}
+                    {% comment %} <img src="{% static 'hotels3.jpg'%}" class="card-img-top"> {% endcomment %}
+                    {% comment %} {% endif %} {% endcomment %}                                          
+                </a>
+                <div class="card-body">
+                  <h5 class="card-title"><a href="{% url 'detail' item.id %}">{{item.title}}</a></h5>
+                  <p class="card-text">{{item.desc}}</p>
+                  <p class="card-text">publier il y'a {{item.created_at|timesince}}</p>
+                  <a href="{% url 'detail' item.id %}" class="btn btn-primary" data-mdb-ripple-init>Lire la suite</a>
+                </div>
+              </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock%}
