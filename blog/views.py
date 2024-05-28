@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Article
+from django.views.generic import ListView
 
 def home(request):
     articles = Article.objects.all()
@@ -18,3 +19,11 @@ def search(request):
     liste_article=Article.objects.filter(title__icontains=query)
     context={"liste_articles":liste_article}
     return render(request, 'search.html', context)
+
+
+class ListArticle(ListView):
+    model = Article
+    context_object_name = 'articles'
+    paginate_by = 10
+    model = Article
+    template_name = "home.html"
